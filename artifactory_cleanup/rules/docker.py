@@ -236,6 +236,7 @@ class KeepLatestNVersionImagesByProperty(RuleForDocker):
 
         for main_version, artifacts_ in grouped.items():
             artifacts_ = list(artifacts_)
+            artifacts_.sort(key=lambda x: x['created'], reverse=True)
             artifacts_.sort(key=self.get_version, reverse=True)
             # Keep latest N artifacts
             artifacts.keep(artifacts_[: self.count])
